@@ -12,7 +12,7 @@ import com.daniel_carroll.daniel.birdgame.utility.Util;
 public class MainMenu extends Level {
     private long startTime;
     private int currentMenu = 0, currentDesiredMenu = 0;
-    private boolean pressed = false;
+    private boolean pressed = false, displayingMuted = false;
 
     public MainMenu(Context c) {
         context = c;
@@ -39,43 +39,52 @@ public class MainMenu extends Level {
     @Override
     public void update() {
         long deltaTime = SystemClock.elapsedRealtime() - startTime;
-        spriteManager.update(getDeltaTime());
+        //spriteManager.update(getDeltaTime());
 
         if(Util.isPressed() && !pressed) {
             pressed = true;
-
-
         }
         if(!Util.isPressed() && pressed)
         {
             pressed = false;
-/*
+
+            System.out.println("tX: " + Util.gettX() + "tY: " + Util.gettY());
+
             if(currentMenu == 0)
             {
-                if(Util.gettX() > 500)
+                if(Util.gettX() > 592 && Util.gettX() < 1983
+                        && Util.gettY() > 1101 && Util.gettY() < 1518)
                 {
+
+                    levelType = LevelType.BOARD;
+                }
+                else if(Util.gettX() > 592 && Util.gettX() < 1983
+                        && Util.gettY() > 1804 && Util.gettY() < 2232)
+                {
+                    currentDesiredMenu = 1;
+
+                }
+                else if(Util.gettX() > 592 && Util.gettX() < 1983
+                        && Util.gettY() > 2515 && Util.gettY() < 2946)
+                {
+                    System.out.println("Exit");
 
                 }
 
             }
             else
             {
+                if(Util.gettX() > 144 && Util.gettX() < 1524
+                        && Util.gettY() > 2809 && Util.gettY() < 3226)
+                {
 
-            }
-
-
-            /*
-
-            if(currentDesiredMenu == 0)
-                    currentDesiredMenu = 1;
-                else
                     currentDesiredMenu = 0;
-
-             */
+                }
+                else if(Util.gettX() > 250 && Util.gettX() < 693
+                        && Util.gettY() > 2112 && Util.gettY() < 2547)
+                    Util.muted = !Util.muted;
+            }
         }
-
-        //if(Util.isPressed() && deltaTime > 1000)
-        //    levelType = LevelType.BOARD;
     }
 
     @Override
@@ -92,10 +101,28 @@ public class MainMenu extends Level {
         else if(currentMenu != 1 && currentDesiredMenu == 1)
         {
             spriteManager.removeImage(10);
-            spriteManager.displaySprite("menubacksettings", 10);
+
+            if(Util.muted)
+                spriteManager.displaySprite("menubacksettings2", 10);
+            else
+                spriteManager.displaySprite("menubacksettings", 10);
 
             currentMenu= 1;
         }
+        if(currentMenu == 1 && displayingMuted != Util.muted)
+        {
+            spriteManager.removeImage(10);
+
+            if(Util.muted)
+                spriteManager.displaySprite("menubacksettings2", 10);
+            else
+                spriteManager.displaySprite("menubacksettings", 10);
+
+            displayingMuted = !displayingMuted;
+        }
+
+
+
     }
 
     @Override
