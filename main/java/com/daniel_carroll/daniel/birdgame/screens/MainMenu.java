@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.os.SystemClock;
 
+import com.daniel_carroll.daniel.birdgame.MainActivity;
 import com.daniel_carroll.daniel.birdgame.R;
 import com.daniel_carroll.daniel.birdgame.utility.Util;
 
@@ -39,7 +40,7 @@ public class MainMenu extends Level {
     @Override
     public void update() {
         long deltaTime = SystemClock.elapsedRealtime() - startTime;
-        //spriteManager.update(getDeltaTime());
+        spriteManager.update(getDeltaTime());
 
         if(Util.isPressed() && !pressed) {
             pressed = true;
@@ -48,7 +49,7 @@ public class MainMenu extends Level {
         {
             pressed = false;
 
-            System.out.println("tX: " + Util.gettX() + "tY: " + Util.gettY());
+            //System.out.println("tX: " + Util.gettX() + "tY: " + Util.gettY());
 
             if(currentMenu == 0)
             {
